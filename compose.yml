@@ -1,0 +1,24 @@
+services:
+
+  matomo:
+    image: matomo:5.1.2-apache
+    depends_on:
+      - matomo_db
+    ports:
+      - 8888:80
+    environment:
+      - MATOMO_DATABASE_HOST=matomo_db
+      - MATOMO_DATABASE_DBNAME=matomo
+      - MATOMO_DATABASE_USERNAME=matomo
+      - MATOMO_DATABASE_PASSWORD=matomo
+
+  matomo_db:
+    image: mariadb:11
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_USER=matomo
+      - MARIADB_PASSWORD=matomo
+      - MARIADB_DATABASE=matomo
+volumes:
+  pg_data:
+  solr_data:

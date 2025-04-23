@@ -1,6 +1,7 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import './App.css';
+import { useEffect } from "react";
 
 function HomePage() {
   return (
@@ -54,17 +55,31 @@ function Navigation() {
 
 function App() {
   const helmetContext = {};
+  const location = useLocation();
+
+  useEffect(() => {
+    var _mtm = window._mtm = window._mtm || [];
+    _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+    (function() {
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src='http://localhost:8888/js/container_vdGtcvo2.js'; s.parentNode.insertBefore(g,s);
+    })();
+  }, []);
+
+  useEffect(() => {
+    var _mtm = window._mtm = window._mtm || [];
+    _mtm.push({ "event": "react-title-update" })
+  }, [location])
+
   return (
-    <HelmetProvider context={helmetContext}>
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+      <HelmetProvider context={helmetContext}>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+      </HelmetProvider>
   );
 }
 
